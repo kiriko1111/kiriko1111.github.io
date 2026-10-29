@@ -5,17 +5,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090609">
-<title>裂昼 · A WORLD BETWEEN LIGHT AND DARK</title>
+<title>RIFT OF DAY · A WORLD BETWEEN LIGHT AND DARK</title>
 <style>
 :root {
-  --bg: #090609;
-  --panel: #130b10;
-  --red: #a30e2d;
-  --bright: #e32c4f;
-  --wine: #510d20;
+  --bg: #080709;
+  --panel: #100b0e;
+  --red: #64101f;
+  --bright: #8b1e32;
+  --wine: #290b13;
   --text: #eadde0;
   --muted: #9d858d;
-  --line: #51212f;
+  --line: #35151e;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -494,7 +494,6 @@ footer {
   <div class="section-head">
     <div class="eyebrow">02 / FRAGMENTS OF MY WORLD</div>
     <h2>暗色收藏室</h2>
-    <p class="section-desc">一些值得被留住的碎片。未来可以换成你自己的照片。</p>
   </div>
   <div class="gallery">
     <article class="photo">
@@ -513,9 +512,8 @@ footer {
       <small>光与影的交界处</small>
     </article>
   </div>
-  <p class="hint">✦ 当前为装饰卡片，并非真实照片。之后可以将它们替换成自己的图片。</p>
 </section>
-
+  
 <section id="diary" class="reveal">
   <div class="section-head">
     <div class="eyebrow">03 / LETTERS TO MYSELF</div>
@@ -545,7 +543,6 @@ footer {
       </div>
     </article>
   </div>
-  <p class="hint">✦ 以上是示例日记。编辑代码中的文字，即可换成你自己的内容。</p>
 </section>
 
 <section id="music" class="reveal">
@@ -563,10 +560,6 @@ footer {
     </div>
     <button class="play" id="playButton" aria-label="播放状态演示">▶</button>
   </div>
-  <p class="player-note" id="playerNote">
-    这是播放器外观演示，目前没有接入音频。点击按钮可以预览播放状态；
-    之后可以再添加你有权使用的音乐文件。
-  </p>
 </section>
 
 <section class="reveal">
@@ -578,7 +571,7 @@ footer {
 
 <footer>
   <div class="ornament">✧ ❦ ✧</div>
-  裂昼 · CRIMSON DREAMS<br>
+  RIFT OF DAY · CRIMSON DREAMS<br>
   MADE OF SHADOWS, STARS & SMALL THINGS.<br>
   <span style="color:#a33c56">© MY LITTLE UNIVERSE</span>
 </footer>
@@ -625,8 +618,6 @@ footer {
       : "A LITTLE SPACE FOR MUSIC";
     progressBar.style.width = preview ? "45%" : "28%";
     playerNote.textContent = preview
-      ? "你正在预览播放器的视觉状态。这里尚未播放真实音乐。"
-      : "播放器外观演示，目前没有接入音频。之后可以添加你有权使用的音乐文件。";
   });
 })();
 </script>
