@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090609">
+<title>裂昼 · A WORLD BETWEEN LIGHT AND DARK</title>
+<style>
+:root {
+  --bg: #090609;
+  --panel: #130b10;
+  --red: #a30e2d;
+  --bright: #e32c4f;
+  --wine: #510d20;
+  --text: #eadde0;
+  --muted: #9d858d;
+  --line: #51212f;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Times New Roman", "Songti SC", serif;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+::selection { background: var(--red); color: white; }
+
+#sky {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 80% 20%, #50102030, transparent 38%),
+    radial-gradient(ellipse at 10% 75%, #720c2220, transparent 35%),
+    #090609;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #f3dfe5;
+  box-shadow: 0 0 8px #e8a5b7;
+  animation: twinkle var(--duration, 4s) ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: .15; transform: scale(.7); }
+  to { opacity: .9; transform: scale(1.3); }
+}
+.orb {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: #a20d2d16;
+  filter: blur(65px);
+  animation: drift 12s ease-in-out infinite alternate;
+}
+.orb.one { top: 15%; left: -100px; }
+.orb.two { top: 55%; right: -120px; animation-delay: -6s; }
+@keyframes drift {
+  to { transform: translate(35px, -45px) scale(1.2); }
+}
+.moon {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #e6d6d9;
+  box-shadow: 0 0 24px #c37b913d, 0 0 80px #a30e2d26;
+  position: relative;
+  margin: 0 auto 32px;
+  overflow: hidden;
+}
+.moon::after {
+  content: "";
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #211018;
+  top: -12px;
+  left: 22px;
+}
+
+nav {
+  max-width: 1120px;
+  margin: auto;
+  padding: 25px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid #ffffff12;
+}
+.logo {
+  font-size: 23px;
+  letter-spacing: 5px;
+  color: #e4b9c4;
+}
+.navlinks {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.navlinks a:hover { color: var(--bright); }
+
+.hero {
+  position: relative;
+  min-height: 670px;
+  padding: 90px 22px 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.hero-inner { max-width: 720px; }
+.kicker {
+  color: #cb667f;
+  font-size: 10px;
+  letter-spacing: 5px;
+  line-height: 2;
+}
+h1 {
+  font-size: clamp(68px, 15vw, 126px);
+  font-weight: 400;
+  letter-spacing: 13px;
+  margin: 0 0 20px;
+  padding-left: 13px;
+  color: #f0dfe3;
+  text-shadow: 0 0 35px #bd1d4530;
+}
+.subtitle {
+  color: #c58d9b;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+.hero-desc {
+  margin: 28px auto;
+  max-width: 430px;
+  font-size: 14px;
+  line-height: 2.2;
+  color: var(--muted);
+}
+.button {
+  display: inline-block;
+  padding: 13px 25px;
+  border: 1px solid #9b2945;
+  color: #edc8d1;
+  background: #4b0c1b4d;
+  letter-spacing: 2px;
+  font-size: 11px;
+  transition: .3s;
+}
+.button:hover {
+  background: #8f1533;
+  box-shadow: 0 0 25px #a30e2d45;
+}
+.ornament {
+  color: #a52c49;
+  letter-spacing: 8px;
+  font-size: 17px;
+  margin: 25px 0;
+}
+.scroll-note {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  color: #71515b;
+  font-size: 9px;
+  letter-spacing: 4px;
+}
+.scroll-note span { display: block; margin-top: 10px; }
+
+section {
+  max-width: 1000px;
+  margin: auto;
+  padding: 78px 24px;
+}
+.section-head { margin-bottom: 30px; }
+.eyebrow {
+  color: #c54b68;
+  letter-spacing: 4px;
+  font-size: 10px;
+}
+h2 {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  margin: 12px 0;
+}
+.section-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+.panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #190c13, #0e090d);
+  padding: 30px;
+  position: relative;
+}
+.panel::before {
+  content: "✦";
+  position: absolute;
+  right: 17px;
+  top: 12px;
+  color: #8d2540;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 25px;
+}
+.sig {
+  display: flex;
+  min-height: 230px;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle, #a20e2e2c, transparent 60%),
+    #10090d;
+  border: 1px solid #542032;
+  color: #c34461;
+  font-size: 65px;
+}
+.about-text {
+  font-size: 14px;
+  color: #b8a3aa;
+  line-height: 2.2;
+}
+.about-text strong { color: #e8c6cf; font-weight: 400; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+.photo {
+  min-height: 220px;
+  padding: 15px;
+  border: 1px solid #51202f;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #28101b, #0b080b 75%);
+}
+.photo:nth-child(2) {
+  background: linear-gradient(155deg, #4a101f, #170a12 70%);
+}
+.photo:nth-child(3) {
+  background: linear-gradient(145deg, #21152b, #10090e 75%);
+}
+.photo::before {
+  content: "✧";
+  position: absolute;
+  top: 20px;
+  right: 23px;
+  font-size: 36px;
+  color: #d08b9b66;
+}
+.photo .symbol {
+  font-size: 40px;
+  color: #c54865;
+  margin-bottom: auto;
+  padding-top: 12px;
+}
+.photo strong {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+.photo small {
+  color: #aa8792;
+  margin-top: 8px;
+  font-size: 10px;
+}
+.hint {
+  font-size: 11px;
+  line-height: 2;
+  color: #80636d;
+  margin-top: 15px;
+}
+
+.diary { display: grid; gap: 14px; }
+.entry {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+  border-bottom: 1px solid #ffffff12;
+  padding: 20px 0;
+}
+.date {
+  color: #b74360;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+.entry h3 {
+  margin: 0 0 10px;
+  color: #e6c7cf;
+  font-size: 17px;
+  font-weight: 400;
+}
+.entry p {
+  color: #a78f98;
+  font-size: 13px;
+  line-height: 2;
+  margin: 0;
+}
+
+.player {
+  border: 1px solid #5b2033;
+  background: linear-gradient(115deg, #1b0a12, #0c080b);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.album {
+  width: 66px;
+  height: 66px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #8d2945;
+  color: #db718b;
+  font-size: 27px;
+  background: radial-gradient(circle, #5a1329, #160a10);
+}
+.track { flex: 1; min-width: 0; }
+.track strong { font-weight: 400; letter-spacing: 1px; }
+.track small {
+  display: block;
+  color: #977581;
+  font-size: 11px;
+  margin-top: 8px;
+}
+.progress {
+  height: 2px;
+  background: #49202d;
+  margin-top: 17px;
+}
+.progress span {
+  display: block;
+  width: 28%;
+  height: 100%;
+  background: #c33b5b;
+  transition: width .4s;
+}
+.play {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  border: 1px solid #a83a57;
+  background: #3b0d1d;
+  color: #f0cdd5;
+  cursor: pointer;
+}
+.player-note {
+  color: #80616c;
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 15px;
+}
+
+.quote {
+  padding: 38px 20px;
+  text-align: center;
+  border-top: 1px solid #4b1c2b;
+  border-bottom: 1px solid #4b1c2b;
+  color: #d5a7b4;
+  font-size: 18px;
+  line-height: 2.2;
+}
+.quote small {
+  display: block;
+  color: #896673;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-top: 15px;
+}
+footer {
+  text-align: center;
+  padding: 35px 20px;
+  color: #74545f;
+  font-size: 10px;
+  letter-spacing: 2px;
+  line-height: 2.5;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .8s, transform .8s;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 620px) {
+  nav { padding: 20px 16px; align-items: flex-start; }
+  .logo { font-size: 19px; }
+  .navlinks { gap: 12px; max-width: 200px; }
+  .hero { min-height: 620px; }
+  .moon { width: 65px; height: 65px; }
+  .moon::after { width: 65px; height: 65px; }
+  h1 { letter-spacing: 8px; padding-left: 8px; }
+  section { padding: 60px 18px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .sig { min-height: 150px; }
+  .gallery { grid-template-columns: 1fr; }
+  .photo { min-height: 180px; }
+  .panel { padding: 23px; }
+  .player { padding: 16px; gap: 12px; }
+  .album { width: 54px; height: 54px; }
+  .entry { grid-template-columns: 65px 1fr; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="sky" aria-hidden="true">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+</div>
+
+<nav>
+  <a class="logo" href="#home">裂昼 ✦</a>
+  <div class="navlinks">
+    <a href="#about">ABOUT</a>
+    <a href="#gallery">GALLERY</a>
+    <a href="#diary">DIARY</a>
+    <a href="#music">MUSIC</a>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-inner">
+    <div class="moon" aria-label="月亮"></div>
+    <div class="kicker">A WORLD BETWEEN LIGHT AND DARK</div>
+    <h1>裂昼</h1>
+    <div class="subtitle">CRIMSON DREAMS · MIDNIGHT THOUGHTS</div>
+    <div class="ornament">༺ ❦ ✧ ❦ ༻</div>
+    <p class="hero-desc">
+      白昼裂开一道缝隙，黑夜便有了形状。<br>
+      欢迎来到我的秘密角落。<br>
+      这里收藏未说出口的话，以及灵魂的另一面。
+    </p>
+    <a class="button" href="#about">ENTER MY WORLD &nbsp; ↘</a>
+  </div>
+  <div class="scroll-note">SCROLL TO DESCEND<span>↓</span></div>
+</header>
+
+<section id="about" class="reveal">
+  <div class="section-head">
+    <div class="eyebrow">01 / THE PERSON BEHIND THE VEIL</div>
+    <h2>关于这个世界</h2>
+    <p class="section-desc">每个人心里，都有一片不必向所有人开放的夜色。</p>
+  </div>
+  <div class="about-grid">
+    <div class="sig">❦</div>
+    <div class="panel about-text">
+      <strong>你好，陌生人。</strong>
+      <p>这里是「裂昼」，一个属于我的私人数字空间。</p>
+      <p>我喜欢夜色、红玫瑰、古典文字，以及那些难以被简单定义的情绪。比起急着寻找答案，我更想记录一路上的疑问、片刻的灵感和真实的自己。</p>
+      <p>如果现实太过喧嚣，就在这里停留片刻吧。</p>
+      <div class="ornament">— ✦ —</div>
+      <span style="color:#bd6b81;font-size:11px;letter-spacing:2px">
+        STILL BECOMING. NEVER FINISHED.
+      </span>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="reveal">
+  <div class="section-head">
+    <div class="eyebrow">02 / FRAGMENTS OF MY WORLD</div>
+    <h2>暗色收藏室</h2>
+    <p class="section-desc">一些值得被留住的碎片。未来可以换成你自己的照片。</p>
+  </div>
+  <div class="gallery">
+    <article class="photo">
+      <div class="symbol">❀</div>
+      <strong>CRIMSON ROSE</strong>
+      <small>在荆棘之间盛放</small>
+    </article>
+    <article class="photo">
+      <div class="symbol">☾</div>
+      <strong>AFTER MIDNIGHT</strong>
+      <small>月亮知道的秘密</small>
+    </article>
+    <article class="photo">
+      <div class="symbol">✧</div>
+      <strong>FADING LIGHT</strong>
+      <small>光与影的交界处</small>
+    </article>
+  </div>
+  <p class="hint">✦ 当前为装饰卡片，并非真实照片。之后可以将它们替换成自己的图片。</p>
+</section>
+
+<section id="diary" class="reveal">
+  <div class="section-head">
+    <div class="eyebrow">03 / LETTERS TO MYSELF</div>
+    <h2>夜间手记</h2>
+    <p class="section-desc">把那些不想遗忘的瞬间，留在时间之外。</p>
+  </div>
+  <div class="panel diary">
+    <article class="entry">
+      <div class="date">NOTE 001<br>01:17 AM</div>
+      <div>
+        <h3>关于成为自己</h3>
+        <p>成长也许不是变成某种理想的模样，而是逐渐知道自己喜欢什么、在意什么，以及愿意为什么停留。</p>
+      </div>
+    </article>
+    <article class="entry">
+      <div class="date">NOTE 002<br>AFTER DARK</div>
+      <div>
+        <h3>夜色与自由</h3>
+        <p>有些想法暂时没有名字，也不必急着解释。允许它们存在，就是一种自由。</p>
+      </div>
+    </article>
+    <article class="entry">
+      <div class="date">NOTE 003<br>TO BE CONTINUED</div>
+      <div>
+        <h3>留给未来的我</h3>
+        <p>希望下一次回到这里时，我依然对世界保有好奇，也依然愿意认真生活。</p>
+      </div>
+    </article>
+  </div>
+  <p class="hint">✦ 以上是示例日记。编辑代码中的文字，即可换成你自己的内容。</p>
+</section>
+
+<section id="music" class="reveal">
+  <div class="section-head">
+    <div class="eyebrow">04 / SOUND OF THE NIGHT</div>
+    <h2>午夜留声机</h2>
+    <p class="section-desc">给思绪留一段旋律的位置。</p>
+  </div>
+  <div class="player">
+    <div class="album">♫</div>
+    <div class="track">
+      <strong>NOCTURNE / 夜曲</strong>
+      <small id="trackStatus">A LITTLE SPACE FOR MUSIC</small>
+      <div class="progress"><span id="progressBar"></span></div>
+    </div>
+    <button class="play" id="playButton" aria-label="播放状态演示">▶</button>
+  </div>
+  <p class="player-note" id="playerNote">
+    这是播放器外观演示，目前没有接入音频。点击按钮可以预览播放状态；
+    之后可以再添加你有权使用的音乐文件。
+  </p>
+</section>
+
+<section class="reveal">
+  <div class="quote">
+    “愿你穿过漫长的黑夜，<br>仍然认得自己的光。”
+    <small>— A NOTE FROM THE OTHER SIDE —</small>
+  </div>
+</section>
+
+<footer>
+  <div class="ornament">✧ ❦ ✧</div>
+  裂昼 · CRIMSON DREAMS<br>
+  MADE OF SHADOWS, STARS & SMALL THINGS.<br>
+  <span style="color:#a33c56">© MY LITTLE UNIVERSE</span>
+</footer>
+
+<script>
+(function () {
+  const sky = document.getElementById("sky");
+
+  for (let i = 0; i < 65; i++) {
+    const star = document.createElement("i");
+    star.className = "star";
+    const size = Math.random() * 2.5 + 1;
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.setProperty("--duration", (2 + Math.random() * 5) + "s");
+    star.style.animationDelay = (-Math.random() * 5) + "s";
+    sky.appendChild(star);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+  const playButton = document.getElementById("playButton");
+  const trackStatus = document.getElementById("trackStatus");
+  const playerNote = document.getElementById("playerNote");
+  const progressBar = document.getElementById("progressBar");
+  let preview = false;
+
+  playButton.addEventListener("click", () => {
+    preview = !preview;
+    playButton.textContent = preview ? "Ⅱ" : "▶";
+    trackStatus.textContent = preview
+      ? "PREVIEW MODE · NO AUDIO"
+      : "A LITTLE SPACE FOR MUSIC";
+    progressBar.style.width = preview ? "45%" : "28%";
+    playerNote.textContent = preview
+      ? "你正在预览播放器的视觉状态。这里尚未播放真实音乐。"
+      : "播放器外观演示，目前没有接入音频。之后可以添加你有权使用的音乐文件。";
+  });
+})();
+</script>
+</body>
+</html>
